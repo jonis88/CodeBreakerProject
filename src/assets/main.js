@@ -13,22 +13,37 @@ function guess() {
     else{
         attempt.value++;
     }
+
+    if(getResults(input.value)){
+        setMessage("You Win! :)");
+        showAnswer(true);
+        showReplay();
+    }
+    else if(!getResults(input.value) && attempt.value >= 10){
+        setMessage("You Lose! :(")
+        showAnswer(false);
+        showReplay();
+    }
+    else{
+        setMessage("Incorrect, try again!")
+    }
+    
 }
 
 function setHiddenFields(){
-    answer = Math.floor(Math.random()*10000);
-    while(answer.value.lenght < 4) {
+    answer.value = Math.floor(Math.random()*9999);
+    while(answer.value.length < 4) {
         answer.value += 0 + answer.value.toString();
     }
     attempt = 0;
 }
 
 function setMessage(message){
-    document.getElementById('label').innerHTML = message;
+    document.getElementById('message').innerHTML = message;
 }
 
-function validateInput(p){
-    if(p.lenght == 4){
+function validateInput(input){
+    if(input.length == 4){
         return true;
     }
     else{
@@ -51,7 +66,7 @@ function getResults(input){
     let countRight = 0;
 
     for (let i = 0; i < 4; i++) {
-        let current = testInput.charAt(i);
+        let current = input.charAt(i);
         if (rightAnswer.charAt(i) == current) {
             codedAnswer += right;
             countRight++;
@@ -64,7 +79,7 @@ function getResults(input){
 
     let result = document.getElementById('results');
     
-    result.innerHTML += openDiv + testInput + midDiv + codedAnswer + endDiv;
+    result.innerHTML += openDiv + input + midDiv + codedAnswer + endDiv;
         
     if (countRight == 4) {
         return true;
@@ -72,14 +87,13 @@ function getResults(input){
         return false;
     }
 }
-function showAnswer(gotIt) {
-    let answerLabel = document.getElementById('code');
-    answerLabel.innerHTML = answer.value;
+function showAnswer(right) {
+    document.getElementById('code').innerHTML = answer.value;
 
-    if (gotIt) {
-        answerLabel.className += " success";
+    if (right) {
+        document.getElementById('code').className += " success";
     } else {
-        answerLabel.className += " failure";
+        document.getElementById('code').className += " failure";
     }
 }
 
