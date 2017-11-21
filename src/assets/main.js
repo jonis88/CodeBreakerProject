@@ -15,12 +15,13 @@ function guess() {
         attempt.value++;
     }
 
-    if(getResults(input.value)){
+    let res = getResults(input.value);
+    if(res){
         setMessage("You Win! :)");
         showAnswer(true);
         showReplay();
     }
-    else if(!getResults(input.value) && attempt.value >= 10){
+    else if(!res && attempt.value >= 10){
         setMessage("You Lose! :(")
         showAnswer(false);
         showReplay();
