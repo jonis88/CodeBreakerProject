@@ -37,7 +37,7 @@ function setHiddenFields(){
     while(answer.value.length < 4) {
         answer.value += 0 + answer.value.toString();
     }
-    attempt = 0;
+    attempt.value = 0;
 }
 
 function setMessage(message){
@@ -89,13 +89,15 @@ function getResults(input){
         return false;
     }
 }
-function showAnswer(right) {
-    document.getElementById('code').innerHTML = answer.value;
 
-    if (right) {
-        document.getElementById('code').className += " success";
+function showAnswer(gotIt) {
+    let answerLabel = document.getElementById('code');
+    answerLabel.innerHTML = answer.value;
+
+    if (gotIt) {
+        answerLabel.className += " success";
     } else {
-        document.getElementById('code').className += " failure";
+        answerLabel.className += " failure";
     }
 }
 
